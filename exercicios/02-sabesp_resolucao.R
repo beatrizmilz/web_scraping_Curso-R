@@ -14,11 +14,15 @@ baixar_sabesp <- function(data) {
     httr::content(simplifyDataFrame = TRUE)
 
   data_correta <-
-    raw_mananciais$ReturnObj$DataString %>%
+    raw_mananciais %>%
+    purrr::pluck("ReturnObj", "DataString") %>%
+    # raw_mananciais$ReturnObj$DataString %>%
     readr::parse_date(format = "%d/%m/%Y")
 
   tabela_mananciais <-
-    raw_mananciais$ReturnObj$sistemas %>% tibble::as_tibble()
+    raw_mananciais$ReturnObj$sistemas %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names()
 
   # A API, caso seja fornecido uma data inválida, redireciona para outra data.
   # Portanto adicionei o if abaixo para checar se a data retornada é igual a
@@ -62,9 +66,14 @@ tab_sabesp
 # $ volume <dbl> 63.25681, 90.35307, 84.25839, 102.28429, 93.66445, 99.85615, 97.33682
 
 sabesp_final <- tab_sabesp %>%
-  janitor::clean_names() %>%
   dplyr::select(nome, volume_porcentagem) %>%
   dplyr::rename("volume" = volume_porcentagem) %>%
   dplyr::mutate(nome = forcats::as_factor(nome))
 
 dplyr::glimpse(sabesp_final)
+
+
+# Outra forma, do Julio, com dplyr::transmute
+
+tab_sabesp %>%  # Pegar depois a resolucao dele!
+

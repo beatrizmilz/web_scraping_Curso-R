@@ -21,7 +21,8 @@ type_get <- url_type %>%
 
  type_results <- type_get %>%
    httr::content(simplifyDataFrame = TRUE) %>%
-  .$results %>%
+   purrr::pluck("results") %>%
+  # .$results %>%  #melhor não
   tibble::as_tibble()
 
 
@@ -31,6 +32,13 @@ type_get <- url_type %>%
 url_grass <- type_results %>%
   dplyr::filter(name == "grass") %>%
   dplyr::pull(url)
+
+
+# OUTRA FORMA, mostrada pelo Julio na aula
+
+url_grass <- httr::content(type_get)$results %>%
+  purrr::keep(~.x$name == "grass") %>%
+  purrr::pluck(1, "url")
 
 
 # 3. Crie um data.frame com os 20 primeiros pokemons do tipo "grass"
@@ -45,10 +53,11 @@ grass_get <- url_grass %>%
 
 grass <- grass_get %>%
   httr::content(simplifyDataFrame = TRUE) %>%
-  .$pokemon %>%
+  purrr::pluck("pokemon") %>%
+#  .$pokemon %>%  # melhor não
   tibble::as_tibble() %>%
   dplyr::slice(1:20)
-# 20 primeiros pokemons
+
 
 
 grass
