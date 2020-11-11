@@ -52,3 +52,9 @@ grass <- grass_get %>%
 
 
 grass
+
+
+# Feedback: Julio Trecenti
+# uma sugestão: sempre deixar separado o comando GET() e os outros comandos.
+# Fica mais bonito com o pipe, mas pra cada vez que você roda, o programa acessa a internet.
+# Então geralmente é mais eficiente separar.
