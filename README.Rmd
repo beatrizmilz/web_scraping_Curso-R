@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(magrittr)
+```
+
+# Curso de Web Scraping
+
+Participação como __aluna__ no curso de [Web Scraping](https://curso-r.github.io/202011-web-scraping/) da [Curso-R](https://www.curso-r.com/).
+
+Minhas resoluções estão na pasta `exercicios/`:
+
+```{r echo=FALSE}
+
+knitr::kable(
+  tibble::tibble(
+    script = list.files("exercicios", pattern = "_resolucao.R"),
+    url = paste0(
+      "https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/",
+      script
+    ),
+  `Exercícios Resolvidos` = glue::glue("[{script}]({url})")
+  ) %>%
+    dplyr::select(3)
+  
+)
+```
+
