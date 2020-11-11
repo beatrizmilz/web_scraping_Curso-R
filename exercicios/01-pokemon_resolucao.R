@@ -15,9 +15,12 @@ endpoint_type <- "/type"
 url_type <- paste0(u_base, endpoint_type)
 
 
-type_results <- url_type %>%
-  httr::GET() %>%
-  httr::content(simplifyDataFrame = TRUE) %>%
+type_get <- url_type %>%
+  httr::GET()
+
+
+ type_results <- type_get %>%
+   httr::content(simplifyDataFrame = TRUE) %>%
   .$results %>%
   tibble::as_tibble()
 
@@ -36,14 +39,16 @@ url_grass <- type_results %>%
 # tibble::as_tibble(tab)
 
 
-grass <- url_grass %>%
-  # dúvida: esse limite não está retornando 20 primeiros pokemons.
-  httr::GET(query = list(limit = 20)) %>%
+grass_get <- url_grass %>%
+  httr::GET()
+
+
+grass <- grass_get %>%
   httr::content(simplifyDataFrame = TRUE) %>%
   .$pokemon %>%
   tibble::as_tibble() %>%
   dplyr::slice(1:20)
-# 20 primeiros pokemons, mas esse não é o jeito correto
+# 20 primeiros pokemons
 
 
 grass
