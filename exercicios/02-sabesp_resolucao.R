@@ -20,7 +20,8 @@ baixar_sabesp <- function(data) {
     readr::parse_date(format = "%d/%m/%Y")
 
   tabela_mananciais <-
-    raw_mananciais$ReturnObj$sistemas %>%
+    purrr::pluck("ReturnObj", "sistemas") %>%
+    #raw_mananciais$ReturnObj$sistemas %>%
     tibble::as_tibble() %>%
     janitor::clean_names()
 
