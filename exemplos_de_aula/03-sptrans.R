@@ -9,11 +9,11 @@ u_sptrans_busca <- paste0(u_sptrans, endpoint)
 httr::content(r_sptrans)
 
 # caso voce nao queira/nao tenha conseguido fazer uma conta
-api_key <- "4af5e3112da870ac5708c48b7a237b30206806f296e1d302e4cb611660e2e03f"
+# api_key <- "4af5e3112da870ac5708c48b7a237b30206806f296e1d302e4cb611660e2e03f"
 
 # Obtenha a API key e coloque no seu ambiente
 ## Dica: usar usethis::edit_r_environ("project")
-
+# usethis::edit_r_environ("project")
 u_sptrans_login <- paste0(u_sptrans, "/Login/Autenticar")
 q_sptrans_login <- list(token = Sys.getenv("API_OLHO_VIVO"))
 # q_sptrans_login <- list(token = api_key)
@@ -25,11 +25,20 @@ content(r_sptrans_login)
 # agora sim, estamos autenticados :)
 
 (r_sptrans <- httr::GET(u_sptrans_busca))
-httr::content(r_sptrans)
 
 # base de dados de posicoes (live)
 
+
+tab_posicoes <- httr::content(r_sptrans,  simplifyDataFrame = TRUE) %>%
+  purrr::pluck("l") %>%
+  tibble::as_tibble()
+
 # base desaninhada (live)
+
+tab_posicoes_desaninhada <- tab_posicoes %>%
+  tidyr::unnest(vs)
 
 # visualizacao! (live)
 
+# Cadê os busão pra minha casa?
+tab_posicoes_desaninhada %>% dplyr::filter(lt1 == "ELDORADO")
