@@ -182,7 +182,7 @@ tab_tjsp <- list.files(path = "exercicios/tjsp/") %>%
 ## Dica: mostre apenas palavras que aparecem mais do que 5 vezes.
 
 stop_words_pt <-  tibble::tibble(word = tm::stopwords("pt")) %>%
-  tibble::add_row(word = c("nº", "n", "r"))
+  tibble::add_row(word = c("nº", "n", "r", "ser", "d", "é", "o", "º"))
 
 
 palavras <- tab_tjsp %>%
@@ -192,6 +192,6 @@ palavras <- tab_tjsp %>%
   dplyr::mutate(word = tm::removeNumbers(word)) %>%
   dplyr::filter(word != "") %>%
   dplyr::count(word, sort = TRUE) %>%
-  dplyr::filter(n > 50)
+  dplyr::filter(n > 30)
 
 wordcloud2::wordcloud2(palavras)
