@@ -16,3 +16,4 @@ Minhas resoluções estão na pasta `exercicios/`:
 | [05-covid\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/05-covid_resolucao.R)             |
 | [06-html\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/06-html_resolucao.R)               |
 | [07-chancedegol\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/07-chancedegol_resolucao.R) |
+| [08-tjsp\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/08-tjsp_resolucao.R)               |

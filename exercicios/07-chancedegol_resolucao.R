@@ -113,6 +113,7 @@ tab_cdg_acerto %>% tidyr::pivot_longer(
   geom_col(aes(x = proporcao_acertos, y = time), fill = "lightblue") +
   theme_bw() +
   labs(y = "Time", x = "Proporção de acertos") +
-  scale_x_continuous(labels = scales::percent)
+  scale_x_continuous(labels = scales::percent) +
+  ggsave("exercicios/Rplot.png")
 
 # alterei algumas coisas no gráfico depois da correção da aula!
