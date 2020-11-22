@@ -15,7 +15,7 @@ cdg_table <- cdg_html  %>%
   xml2::xml_find_first('//table') %>%
   rvest::html_table() %>%
   tibble::as_tibble() %>%
-  set_names(janitor::make_clean_names(.[1,])) %>%
+  set_names(janitor::make_clean_names(.[1, ])) %>%
   dplyr::slice(-1)
 
 
@@ -97,15 +97,22 @@ tab_cdg_acerto <- tab_cdg %>%
 
 library(ggplot2)
 
-tab_cdg_acerto %>% tidyr::pivot_longer(cols = c(mandante, visitante), names_to = "mandante_ou_visitante", values_to = "time") %>%
+tab_cdg_acerto %>% tidyr::pivot_longer(
+  cols = c(mandante, visitante),
+  names_to = "mandante_ou_visitante",
+  values_to = "time"
+) %>%
   dplyr::group_by(time) %>%
-  dplyr::summarise(total_acertos = sum(acertou),
-                   total_jogos = dplyr::n(),
-                   proporcao_acertos = total_acertos / total_jogos) %>%
-  dplyr::arrange(proporcao_acertos) %>%
+  dplyr::summarise(
+    total_acertos = sum(acertou),
+    total_jogos = dplyr::n(),
+    proporcao_acertos = total_acertos / total_jogos
+  ) %>%
+  dplyr::mutate(time = forcats::fct_reorder(time, proporcao_acertos)) %>%
   ggplot() +
-  geom_col(aes(x = proporcao_acertos, y = reorder(time, -proporcao_acertos)), fill = "lightblue", alpha = 0.7) +
+  geom_col(aes(x = proporcao_acertos, y = time), fill = "lightblue") +
   theme_bw() +
-  labs(y = "Time", x= "Proporção de acertos")
+  labs(y = "Time", x = "Proporção de acertos") +
+  scale_x_continuous(labels = scales::percent)
 
-
+# alterei algumas coisas no gráfico depois da correção da aula!
