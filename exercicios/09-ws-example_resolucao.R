@@ -74,8 +74,7 @@ maybe_baixar_pagina <- purrr::possibly(baixar_pagina, "erro")
 
 
 maybe_baixar_pagina_progresso <- function(pag, pasta, prog) {
-
-  if(!missing(prog)) prog()
+  if (!missing(prog)) prog()
   Sys.sleep(1)
   maybe_baixar_pagina(pag, pasta)
 }
@@ -97,7 +96,7 @@ progressr::with_progress({
 
 # Vou avançar no exemplo de classe: scrapear uma pagina, baixar um pais, scrapear um pais
 
-# Buscar a URL dos trabalhos para baixar!
+# Buscar a URL dos países para baixar!
 ler_pagina <- function(pag, pasta) {
   `%>%` <- magrittr::`%>%`
 
@@ -116,13 +115,13 @@ ler_pagina <- function(pag, pasta) {
     xml2::xml_text("a") %>%
     stringr::str_squish()
 
-    df <- tibble::tibble(nome = nomes_paises, link = url_paises)
+  df <- tibble::tibble(nome = nomes_paises, link = url_paises)
 
-    df
+  df
 }
 
 
-paises <- purrr::map2_df(.x = 1:26, .y =   "exemplos_de_aula/ws_site", .f = ler_pagina)
+paises <-  purrr::map2_df(.x = 1:26, .y =   "exemplos_de_aula/ws_site", .f = ler_pagina)
 
 readr::write_rds(paises, "exercicios/ws_paises.rds")
 
@@ -133,8 +132,7 @@ paises <- readr::read_rds("exercicios/ws_paises.rds")
 # Adaptei a função que o Julio fez na aula
 
 baixar_pagina_pais <- function(n_linha, df, pasta) {
-
-    arquivo <- paste0(pasta, "/", df$nome[n_linha], ".html")
+  arquivo <- paste0(pasta, "/", df$nome[n_linha], ".html")
 
   if (!file.exists(arquivo)) {
     u_pag <- df$link[n_linha]
@@ -151,19 +149,22 @@ baixar_pagina_pais <- function(n_linha, df, pasta) {
 
 
 
-maybe_baixar_pagina_pais <- purrr::safely(baixar_pagina_pais, "erro")
+maybe_baixar_pagina_pais <-
+  purrr::safely(baixar_pagina_pais, "erro")
 
-#maybe_baixar_pagina_pais(1,paises, "exercicios/ws_paises")
+# testando se funciona, funciona :)
+# maybe_baixar_pagina_pais(1,paises, "exercicios/ws_paises")
 
 
 
-maybe_baixar_pagina_pais_progresso <- function( n_linha, df, pasta,  prog) {
+maybe_baixar_pagina_pais_progresso <-
+  function(n_linha, df, pasta,  prog) {
+    if (!missing(prog)) prog()
+    Sys.sleep(1)
+    maybe_baixar_pagina_pais(n_linha, df, pasta)
+  }
 
-  if(!missing(prog)) prog()
-  Sys.sleep(1)
-  maybe_baixar_pagina_pais(n_linha, df, pasta)
-}
-
+# testando se funciona, funciona :)
 # maybe_baixar_pagina_pais_progresso(1, paises, "exercicios/ws_paises")
 
 # Acabei fazendo apenas com purrr, e sem barra de progresso pq eu to errando algo no código abaixo.
@@ -194,13 +195,15 @@ purrr::map(
 #                     prog = p)
 # })
 
+
+
 # Agora é preciso abrir os html e transformar os dados em uma tibble
 
 
-sites_paises <- list.files("exercicios/ws_paises/", full.names = TRUE)
+sites_paises <-
+  list.files("exercicios/ws_paises/", full.names = TRUE)
 
-ler_pais <- function(file){
-
+ler_pais <- function(file) {
   df <- file %>% xml2::read_html() %>%
     rvest::html_table() %>%
     purrr::pluck(1) %>%
@@ -208,10 +211,12 @@ ler_pais <- function(file){
     dplyr::select(-X3) %>%
     tidyr::pivot_wider(names_from = X1, values_from = X2) %>%
     janitor::clean_names() %>%
-    dplyr::mutate(area_sq_km = readr::parse_number(area),
-                  population = readr::parse_number(population)) %>%
+    dplyr::mutate(
+      area_sq_km = readr::parse_number(area),
+      population = readr::parse_number(population)
+    ) %>%
     dplyr::relocate(area_sq_km, .after = area) %>%
-  dplyr::select(-national_flag, -area)
+    dplyr::select(-national_flag, -area)
 
 
   df
