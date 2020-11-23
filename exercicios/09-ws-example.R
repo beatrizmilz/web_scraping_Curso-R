@@ -9,3 +9,6 @@
 # Obs: Pode ser que seu IP tenha sido bloqueado!
 
 # 4. Como você resolveria esse problema?
+
+
+# JÚLIO RESOLVEU ESSE EXERCÍCIO NA AULA 4!

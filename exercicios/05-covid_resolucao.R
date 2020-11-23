@@ -6,6 +6,7 @@
 
 # https://opendatasus.saude.gov.br/dataset/casos-nacionais/resource/30c7902e-fe02-4986-b69d-906ca4c2ec36
 
+# Pelo que vi no inspetor, é um GET
 
 u_elastic <- "https://elasticsearch-saps.saude.gov.br/desc-notificacoes-esusve-*/_search?pretty"
 
@@ -17,7 +18,7 @@ e_senha <-  "Za4qNXdyQNSa9YaA"
 
 
 # Não to sabendo autenticar T_T
-httr::POST(u_elastic, query = list(Username = e_usuario, Password = e_senha))
+httr::GET(u_elastic, query = list(Username = e_usuario, Password = e_senha))
 
 
 # Buscando resutlados?
