@@ -17,3 +17,4 @@ Minhas resoluções estão na pasta `exercicios/`:
 | [06-html\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/06-html_resolucao.R)               |
 | [07-chancedegol\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/07-chancedegol_resolucao.R) |
 | [08-tjsp\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/08-tjsp_resolucao.R)               |
+| [09-ws-example\_resolucao.R](https://github.com/beatrizmilz/web_scraping_Curso-R/blob/master/exercicios/09-ws-example_resolucao.R)   |
