@@ -15,10 +15,10 @@ u_elastic <- "https://elasticsearch-saps.saude.gov.br/desc-notificacoes-esusve-*
 e_usuario <- "user-public-notificacoes"
 e_senha <-  "Za4qNXdyQNSa9YaA"
 
-
+httr::POST(u_elastic, httr::authenticate(e_usuario, e_senha))
 
 # Não to sabendo autenticar T_T
-httr::GET(u_elastic, query = list(Username = e_usuario, Password = e_senha))
+#httr::GET(u_elastic, query = list(Username = e_usuario, Password = e_senha))
 
 
 # Buscando resutlados?

@@ -39,7 +39,7 @@ html <- ses$getSource()
 readr::write_file(html, "out/shiny_webdriver.html")
 
 arrumar_nome <- purrr::partial(
-  janitor::make_clean_names, 
+  janitor::make_clean_names,
   replace = c("º" = "")
 )
 
@@ -47,9 +47,15 @@ arrumar_nome <- purrr::partial(
   xml2::read_html() %>%
   xml2::xml_find_first("//table[@id='DataTables_Table_0']") %>%
   rvest::html_table() %>%
-  dplyr::rename_with(arrumar_nome) %>% 
+  dplyr::rename_with(arrumar_nome) %>%
   dplyr::as_tibble()
 
 # iterar (em aula)
 
 # baixar o xlsx (não tentei!)
+
+
+
+# Código que o Julio fez na aula que cria um vetor com a sigla dos estados
+# estados <- unique(geobr::grid_state_correspondence_table$code_state)
+
